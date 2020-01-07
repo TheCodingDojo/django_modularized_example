@@ -1,6 +1,6 @@
-# This example demonstrates some advanced design patterns
+# This example demonstrates some more advanced patterns
 
-# Optional Design Patterns
+# Optional Advanced Topics
 - only try these if you are not struggling with the more basic patterns you first learn in django
 
 ## named routes

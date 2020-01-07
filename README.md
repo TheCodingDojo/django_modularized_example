@@ -3,6 +3,9 @@
 # Optional Design Patterns
 - only try these if you are not struggling with the more basic patterns you first learn in django
 
+## named routes
+- giving routes a name can help with readability and if the URL ever changes, since everywhere that the route is referenced it is referenced by name instead of by the URL, you only have to update the URL in the one place
+
 ## multiple views & template sub folders - better organization
 - Splitting views is useful when you have more than one model, e.g., `User` and `Task` and you want to have a route for all users and a route for all tasks, you can't have the two view functions with the name 'all' and two html files named 'all' unless they are split into separate view files and separate template sub-folders
 

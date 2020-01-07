@@ -1,6 +1,4 @@
-# This example demonstrates some advanced patterns
-
-# ***!!!Replace `{{your_project_name}}` and `{{app_name}}` with your chosen project & app names, removing curly braces!!!***
+# This example demonstrates some advanced design patterns
 
 # Optional Design Patterns
 - only try these if you are not struggling

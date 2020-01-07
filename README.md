@@ -1,7 +1,7 @@
 # This example demonstrates some advanced design patterns
 
 # Optional Design Patterns
-- only try these if you are not struggling
+- only try these if you are not struggling with the more basic patterns you first learn in django
 
 ## multiple views & template sub folders - better organization
 - Splitting views is useful when you have more than one model, e.g., `User` and `Task` and you want to have a route for all users and a route for all tasks, you can't have the two view functions with the name 'all' and two html files named 'all' unless they are split into separate view files and separate template sub-folders

@@ -1,0 +1,92 @@
+{% extends 'task_manager/base.html' %}
+
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'task_manager/css/tasks/details.css' %}">
+{% endblock %}
+
+{% block title %} Task Manager - Task Details {% endblock %}
+
+{% block tasks_details %}
+
+<div class="card shadow text-center w-75 mx-auto">
+  <div class="card-header">
+    <h3 class="card-title">
+      {% if task.is_complete %}
+      <span class="h5 text-success">
+        &#10004;
+      </span>
+      {% else %}
+      <span class="h5 text-danger">
+        &#10060;
+      </span>
+      {% endif %}
+      {{ task.title }}
+    </h3>
+  </div>
+  <div class="card-body">
+    <h4 class="card-subtitle mb-2">
+      Created By:
+      <a href="#">
+        {{ task.created_by.full_name }}
+      </a>
+    </h4>
+    <h5>
+      Assigned To:
+      <a href="#">
+        {{ task.assigned_to.full_name }}
+      </a>
+    </h5>
+    <h6>
+      <span class="text-danger">Due:</span> {{ task.due_date }}
+    </h6>
+    {% if task.is_complete %}
+    <h6>
+      <span class="text-success">Completed On:</span> {{ task.completed_at }}
+    </h6>
+    {% endif %}
+    <p class="card-text border">
+      <span class="h6 d-block">Details:</span>
+      {{ task.description }}
+    </p>
+  </div>
+
+  <div class="card-footer">
+    <p>
+      tags:
+      {% for tag in task.tags.all %}
+      <a href="#">
+        {{ tag.name }}
+      </a>
+      {% endfor %}
+    </p>
+
+    {% if logged_user == task.created_by or logged_user == task.assigned_to  %}
+    <form action="{% url 'tasks_toggle_completed' task_id=task.id %}" method="POST" class="d-inline-block mr-1">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-{% if task.is_complete %}danger{% else %}success{% endif %}">
+        {% if task.is_complete %}Incompleted{% else %}Completed{% endif %}
+      </button>
+    </form>
+    {% endif %}
+
+    {% if logged_user == task.created_by %}
+    <form action="{% url 'tasks_edit' task_id=task.id %}" method="POST" class="d-inline-block mr-1">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-warning">
+        Edit
+      </button>
+    </form>
+
+    <form action="{% url 'tasks_delete' task_id=task.id %}" method="POST" class="d-inline-block mr-1">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">
+        Delete
+      </button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

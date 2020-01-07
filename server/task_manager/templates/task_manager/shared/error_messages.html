@@ -1,0 +1,11 @@
+<section class="text-danger text-center mb-3">
+  {% if messages %}
+  <ul class="list-unstyled d-inline-block">
+    {% for message in messages %}
+    <li class="text-left">
+      {{ message }}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>

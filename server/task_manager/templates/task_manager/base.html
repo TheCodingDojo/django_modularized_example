@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{% block title %} Task Manager {% endblock %}</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'task_manager/css/task_manager.css' %}">
+  {% block extra_styles %} {% endblock %}
+</head>
+
+<body>
+  <div class="container">
+
+    <header class="mb-5">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Task Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            {% if request.path != '/users/dashboard' and request.session.user_id %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users_dashboard' %}">
+                Dashboard
+              </a>
+            </li>
+            {% endif %}
+
+            {% if request.session.user_id %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'tasks_new' %}">
+                New Task
+              </a>
+            </li>
+            {% endif %}
+
+
+            {% if request.session.user_id %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users_logout' %}">
+                Logout
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    {% include "task_manager/shared/error_messages.html" %}
+
+    <!-- html files that extend base.html can inject html to these blocks by referencing them -->
+    {% block login_register %} {% endblock %}
+    {% block users_all %} {% endblock %}
+    {% block tasks_all %} {% endblock %}
+    {% block users_dashboard %} {% endblock %}
+
+    {% block tasks_new %} {% endblock %}
+    {% block tasks_details %} {% endblock %}
+  </div>
+
+</body>
+
+</html>

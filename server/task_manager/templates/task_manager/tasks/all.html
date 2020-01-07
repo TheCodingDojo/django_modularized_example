@@ -1,0 +1,18 @@
+{% extends 'task_manager/base.html' %}
+
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'task_manager/css/tasks/all.css' %}">
+{% endblock %}
+
+{% block title %} Task Manager - All Tasks {% endblock %}
+
+
+{% block tasks_all %}
+
+<h1 id="tasks-all" class="text-center">
+  All Tasks
+</h1>
+
+{% endblock %}

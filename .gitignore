@@ -1,0 +1,55 @@
+env/
+
+# OS
+# ===========
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# General
+# =======
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.tmp
+*.bak
+*.swp
+logs/
+*.pem
+
+
+# Django / Python
+__pycache__/
+.vscode
+venv/
+db.sqlite3
+python_nc/week3/day1_sports_orm/sports_orm/apps/leagues/fixtures/data.json
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.ntvs*
+*.njsproj
+*.sln
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn

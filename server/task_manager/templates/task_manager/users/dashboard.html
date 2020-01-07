@@ -1,0 +1,112 @@
+{% extends 'task_manager/base.html' %}
+
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'task_manager/css/users/dashboard.css' %}">
+{% endblock %}
+
+{% block title %} Task Manager - Dashboard {% endblock %}
+
+{% block users_dashboard %}
+<div class="container">
+
+  <h2 class="text-center mb-5">
+    Welcome {{ logged_user.full_name }}
+  </h2>
+
+  {% for row in rows %}
+
+  <div class="row mb-5 shadow ">
+    <div
+      class="border {% if row.heading == 'Assigned Tasks'  %} border-warning {% else %} border-info {% endif %}  w-100">
+      <h3 class="text-center">
+        {{ row.heading }}
+      </h3>
+    </div>
+
+    {% for col in row.cols %}
+    <div class="col">
+      <h4 class="text-center mt-3 mb-3">
+        <span class="border-bottom border-{% if col.heading == 'Incompleted Tasks'%}danger{% else %}success{% endif %}">
+          {{ col.heading }}
+        </span>
+      </h4>
+
+      {% for task in col.filtered_tasks %}
+      <div class="card shadow text-center mb-3">
+        <div class="card-header">
+          <h3 class="card-title">
+            {% if task.is_complete %}
+            <span class="h6 text-success">
+              &#10004;
+            </span>
+            {% else %}
+            <span class="h6 text-danger">
+              &#10060;
+            </span>
+            {% endif %}
+            <a href="{% url 'tasks_details' task_id=task.id %}">
+              {{ task.title }}
+            </a>
+          </h3>
+        </div>
+        <div class="card-body">
+          <h4 class="card-subtitle mb-2">
+            Created By:
+            <a href="#">
+              {{ task.created_by.full_name }}
+            </a>
+          </h4>
+          <h5>
+            Assigned To:
+            <a href="#">
+              {{ task.assigned_to.full_name }}
+            </a>
+          </h5>
+          <h6>
+            <span class="text-danger">Due:</span> {{ task.due_date }}
+          </h6>
+          {% if task.is_complete %}
+          <h6>
+            <span class="text-success">Completed On:</span> {{ task.completed_at }}
+          </h6>
+          {% endif %}
+          <p class="card-text border">
+            <span class="h6 d-block">Details:</span>
+            {{ task.description }}
+          </p>
+        </div>
+
+        <div class="card-footer">
+          <p>
+            tags:
+            {% for tag in task.tags.all %}
+            <a href="#">
+              {{ tag.name }}
+            </a>
+            {% endfor %}
+          </p>
+
+          {% if logged_user == task.created_by or logged_user == task.assigned_to  %}
+          <form action="{% url 'tasks_toggle_completed' task_id=task.id %}" method="POST" class="d-inline-block mr-1">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-{% if task.is_complete %}danger{% else %}success{% endif %}">
+              {% if task.is_complete %}Incompleted{% else %}Completed{% endif %}
+            </button>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+      <!-- end filtered_tasks -->
+
+    </div>
+    {% endfor %}
+    <!-- end cols-->
+  </div>
+  {% endfor %}
+  <!-- end rows -->
+</div>
+
+{% endblock %}
